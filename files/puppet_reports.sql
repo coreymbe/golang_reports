@@ -1,0 +1,1 @@
+CREATE TABLE reports ( ID SERIAL PRIMARY KEY, certname varchar(40) NOT NULL, environment varchar(40), status varchar(40) NOT NULL, time varchar(40), transaction_uuid character varying(50) NOT NULL );

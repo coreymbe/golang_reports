@@ -1,0 +1,3 @@
+# Managed by Puppet
+---
+"reports_url" : "<%= $golang_reports::reports_url %>"

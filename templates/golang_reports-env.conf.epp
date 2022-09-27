@@ -1,0 +1,6 @@
+# Managed by Puppet
+# /etc/systemd/system/golang-reports.service.d/env.conf
+[Service]
+Environment=dbName=<%= $golang_reports::server::db_name %>
+Environment=dbUser=<%= $golang_reports::server::db_user %>
+Environment=dbPass=<%= $golang_reports::server::db_pass %>
