@@ -13,14 +13,6 @@ This module contains an example custom Puppet processor (`golang_reports`) to se
 
 ## Setup
 
-Apply this class to your PE Primary Server & Compilers.
-
-#### `golang_reports`
-##### Parameters:
-  * `$reports_url` - The hostname of Report Server.
-
----
-
 Apply the database class to an agent node.
 
 #### `golang_reports::database`
@@ -46,6 +38,14 @@ Apply the server class to agent node running the database.
 
 #### `golang_reports::server`
 
+---
+
+Apply this class to your PE Primary Server & Compilers.
+
+#### `golang_reports`
+##### Parameters:
+  * `$enabled` - Set to **true** to enable the report processor.
+  * `$reports_url` - The hostname of Report Server.
 
 ## Usage
 
