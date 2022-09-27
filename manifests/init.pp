@@ -1,9 +1,15 @@
-# @summary A short summary of the purpose of this class
+# @summary Class to configure custom report processor
 #
-# A description of what this class does
+# This class enables the custom golang_reports report processor. 
 #
 # @example
 #   include golang_reports
+# @param [String] reports_url
+#   The url of the server running the Reports API is running on.
+# @param [Boolean] enabled
+#   Default: false
+#   Set this parameter to true to enable the report processor.
+#
 class golang_reports (
   String $reports_url,
   Boolean $enabled = false,

@@ -1,9 +1,22 @@
-# @summary A short summary of the purpose of this class
+# @summary Class to configure the Golang Reports API
 #
-# A description of what this class does
+# This class manages the golang-reports service.
+#
+# The optional parameters should be utilized when Puppet
+# is not managing the PostgreSQL server.
 #
 # @example
 #   include golang_reports::server
+# @param [String] db_name
+#   Default: $golang_reports::database::db_name
+#   The name of the PG database.   
+# @param [String] db_user
+#   Default: $golang_reports::database::pg_user
+#   The name of the PG user.
+# @param [String] db_pass
+#   Default: $golang_reports::database::pg_password
+#   The PG User password.
+#
 class golang_reports::server (
   String $db_name = $golang_reports::database::db_name,
   String $db_user = $golang_reports::database::pg_user,
