@@ -62,9 +62,16 @@ include golang_reports::database
 
 The following parameters are available in the `golang_reports::database` class:
 
+* [`pe_console`](#pe_console)
 * [`pg_user`](#pg_user)
 * [`pg_password`](#pg_password)
 * [`db_name`](#db_name)
+
+##### <a name="pe_console"></a>`pe_console`
+
+Data type: `String`
+
+FQDN of PE Console for access to the DB.
 
 ##### <a name="pg_user"></a>`pg_user`
 
@@ -76,7 +83,7 @@ Database user to create with required permissions.
 
 Data type: `String`
 
-Sets password for the postgres and $pg_user.
+Sets password for the $pg_user.
 
 ##### <a name="db_name"></a>`db_name`
 

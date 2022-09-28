@@ -4,20 +4,22 @@
 #
 # @example
 #   include golang_reports::database
+# @param [String] pe_console
+#   FQDN of PE Console for access to the DB.
 # @param [String] pg_user
 #   Database user to create with required permissions.
 # @param [String] pg_password
-#   Sets password for the postgres and $pg_user.
+#   Sets password for the $pg_user.
 # @param [String] db_name
 #   Name for newly created database.
 #
 class golang_reports::database (
+  String $pe_console,
   String $pg_user,
   String $pg_password,
   String $db_name,
 ) {
   class { 'postgresql::server':
-    postgres_password => $pg_password,
   }
   postgresql::server::db { $db_name:
     user     => $pg_user,
@@ -25,11 +27,11 @@ class golang_reports::database (
   }
 
   postgresql::server::pg_hba_rule { 'allow application network to access puppet database':
-    description => 'Open up PostgreSQL for access for puppet user',
+    description => 'Open up PostgreSQL from PE Console',
     type        => 'host',
     database    => $db_name,
     user        => $pg_user,
-    address     => '0.0.0.0/0',
+    address     => $pe_console,
     auth_method => 'md5',
   }
 }

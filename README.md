@@ -11,14 +11,17 @@
 
 This module contains an example custom Puppet processor (`golang_reports`) to send a small amount of Puppet report data to an [example API](https://github.com/coreymbe/golang-reports-api) written in Golang.
 
+After completing the setup steps you should have an agent node running the custom Golang Reports API backed with PostgreSQL for the Primary and Compilers to ship reports to.
+
 ## Setup
 
 Apply the database class to an agent node.
 
 #### `golang_reports::database`
 ##### Parameters:
+  * `$pe_console` - FQDN of the PE Console.
   * `$pg_user` - Name for new postgresql user.
-  * `$pg_password` - Password for both the new user and the `postgres` user.
+  * `$pg_password` - Password for new `$pg_user`.
   * `$db_name` - Name for new database to store reports.
 
 Once the class has been applied you will need to run the following task from the PE Console against the agent node with the 	`golang_reports::database` class:
@@ -32,9 +35,7 @@ Once the class has been applied you will need to run the following task from the
     * **sql** = `CREATE TABLE reports ( ID SERIAL PRIMARY KEY, certname varchar(40) NOT NULL, environment varchar(40), status varchar(40) NOT NULL, time varchar(40), transaction_uuid character varying(50) NOT NULL );`
     * **user** = (The username used for `golang_reports::database::pg_user`)
 
----
-
-Apply the server class to agent node running the database.
+Then apply the server class to agent node running the database.
 
 #### `golang_reports::server`
 
@@ -45,7 +46,7 @@ Apply this class to your PE Primary Server & Compilers.
 #### `golang_reports`
 ##### Parameters:
   * `$enabled` - Set to **true** to enable the report processor.
-  * `$reports_url` - The hostname of Report Server.
+  * `$reports_url` - The hostname of Report Server (ex. `http://example.agent-node.puppet.com`).
 
 ## Usage
 
@@ -59,4 +60,11 @@ Additionally, you can review report data by running the following curl command:
   
 ## Limitations
 
-Currently testing of this modules usage is limited to CentOS 7.
+  * Current testing of this modules usage is limited to PE 2019.8.12 on CentOS 7.
+
+  * The custom report processor and API currently only support the following report data from Puppet:
+    * `certname`
+    * `environment`
+    * `status`
+    * `time`
+    * `transaction_uuid`
