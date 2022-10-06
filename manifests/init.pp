@@ -6,12 +6,15 @@
 #   include golang_reports
 # @param [String] reports_url
 #   The url of the server running the Reports API is running on.
+# @param [Sensitive[String]] jwt
+#    The JSON Web Token generated with the golang_reports::generate_token task.
 # @param [Boolean] enabled
 #   Default: false
 #   Set this parameter to true to enable the report processor.
 #
 class golang_reports (
   String $reports_url,
+  Sensitive[String] $jwt,
   Boolean $enabled = false,
 ) {
   if $enabled {

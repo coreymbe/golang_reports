@@ -20,10 +20,12 @@ module Puppet::Util::Golang_Reports
 
   def send_report(body)
     reports_url = settings['reports_url'] || raise(Puppet::Error, 'Must provide reports_url parameter to golang_reports class.')
+    token = settings['jwtoken'] || raise(Puppet::Error, 'Must provide jwt parameter to golang_reports class.')
     @uri = URI.parse("#{reports_url}:2754/reports/add")
     http = Net::HTTP.new(@uri.host, @uri.port)
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     req = Net::HTTP::Post.new(@uri.path.to_str)
+    req.add_field('Authorization', "Bearer #{token}")
     req.add_field('Content-Type', 'application/json')
     req.content_type = 'application/json'
     req.body = body.to_json

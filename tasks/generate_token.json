@@ -1,0 +1,14 @@
+{
+  "description": "Generate a JSON Web Token for authenticating the Golang Reports API",
+  "input_method": "stdin",
+  "parameters": {
+    "username": {
+      "description": "API username",
+      "type": "String[1]"
+    },
+    "password": {
+      "description": "API user pass",
+      "type": "String[1]"
+    }
+  }
+}

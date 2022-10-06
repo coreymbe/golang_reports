@@ -10,6 +10,10 @@
 * [`golang_reports::database`](#golang_reportsdatabase): Class to manage DB connection for Golang Reports API
 * [`golang_reports::server`](#golang_reportsserver): Class to configure the Golang Reports API
 
+### Tasks
+
+* [`generate_token`](#generate_token): Allows you to execute arbitary SQL
+
 ## Classes
 
 ### <a name="golang_reports"></a>`golang_reports`
@@ -29,6 +33,7 @@ include golang_reports
 The following parameters are available in the `golang_reports` class:
 
 * [`reports_url`](#reports_url)
+* [`jwt`](#jwt)
 * [`enabled`](#enabled)
 
 ##### <a name="reports_url"></a>`reports_url`
@@ -36,6 +41,12 @@ The following parameters are available in the `golang_reports` class:
 Data type: `String`
 
 The url of the server running the Reports API is running on.
+
+##### <a name="jwt"></a>`jwt`
+
+Data type: `Sensitive[String]`
+
+The JSON Web Token generated with the golang_reports::generate_token task.
 
 ##### <a name="enabled"></a>`enabled`
 
@@ -81,9 +92,9 @@ Database user to create with required permissions.
 
 ##### <a name="pg_password"></a>`pg_password`
 
-Data type: `String`
+Data type: `Sensitive[String]`
 
-Sets password for the $pg_user.
+Sets password for the pg_user.
 
 ##### <a name="db_name"></a>`db_name`
 
@@ -110,9 +121,16 @@ include golang_reports::server
 
 The following parameters are available in the `golang_reports::server` class:
 
+* [`jwt_secret`](#jwt_secret)
 * [`db_name`](#db_name)
 * [`db_user`](#db_user)
 * [`db_pass`](#db_pass)
+
+##### <a name="jwt_secret"></a>`jwt_secret`
+
+Data type: `Sensitive[String]`
+
+Random secure character string for private key.
 
 ##### <a name="db_name"></a>`db_name`
 
@@ -134,9 +152,31 @@ Default value: `$golang_reports::database::pg_user`
 
 ##### <a name="db_pass"></a>`db_pass`
 
-Data type: `String`
+Data type: `Sensitive[String]`
 
 Default: $golang_reports::database::pg_password
 The PG User password.
 
 Default value: `$golang_reports::database::pg_password`
+
+## Tasks
+
+### <a name="generate_token"></a>`generate_token`
+
+Generate a JSON Web Token for authenticating the Golang Reports API
+
+**Supports noop?** false
+
+#### Parameters
+
+##### `username`
+
+Data type: `String[1]`
+
+API username
+
+##### `password`
+
+Data type: `String[1]`
+
+API user pass

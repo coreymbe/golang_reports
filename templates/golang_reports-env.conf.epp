@@ -4,3 +4,4 @@
 Environment=dbName=<%= $golang_reports::server::db_name %>
 Environment=dbUser=<%= $golang_reports::server::db_user %>
 Environment=dbPass=<%= $golang_reports::server::db_pass %>
+Environment=JWTSecretKey=<%= $golang_reports::server::jwt_secret %>

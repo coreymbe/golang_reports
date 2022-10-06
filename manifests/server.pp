@@ -7,20 +7,23 @@
 #
 # @example
 #   include golang_reports::server
+# @param [Sensitive[String]] jwt_secret
+#   Random secure character string for private key.
 # @param [String] db_name
 #   Default: $golang_reports::database::db_name
 #   The name of the PG database.   
 # @param [String] db_user
 #   Default: $golang_reports::database::pg_user
 #   The name of the PG user.
-# @param [String] db_pass
+# @param [Sensitive[String]] db_pass
 #   Default: $golang_reports::database::pg_password
 #   The PG User password.
 #
 class golang_reports::server (
-  String $db_name = $golang_reports::database::db_name,
-  String $db_user = $golang_reports::database::pg_user,
-  String $db_pass = $golang_reports::database::pg_password,
+  Sensitive[String] $jwt_secret,
+  String $db_name            = $golang_reports::database::db_name,
+  String $db_user            = $golang_reports::database::pg_user,
+  Sensitive[String] $db_pass = $golang_reports::database::pg_password,
 ) {
   file { "${settings::confdir}/golang_reports_api":
     ensure => directory,

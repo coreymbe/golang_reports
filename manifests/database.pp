@@ -8,15 +8,15 @@
 #   FQDN of PE Console for access to the DB.
 # @param [String] pg_user
 #   Database user to create with required permissions.
-# @param [String] pg_password
-#   Sets password for the $pg_user.
+# @param [Sensitive[String]] pg_password
+#   Sets password for the pg_user.
 # @param [String] db_name
 #   Name for newly created database.
 #
 class golang_reports::database (
   String $pe_console,
   String $pg_user,
-  String $pg_password,
+  Sensitive[String] $pg_password,
   String $db_name,
 ) {
   class { 'postgresql::server':
